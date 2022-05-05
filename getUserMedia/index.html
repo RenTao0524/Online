@@ -5,10 +5,98 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    h2 {
+      text-align: center;
+      margin: 0;
+    }
+    #video {
+      width: 100vw;
+      height: 400px;
+    }
+    #previewImg {
+      width: 100%;
+      height: auto;
+    }
+  </style>
 </head>
 <body>
   <h2>getUserMedia demo</h2>
   <script>
+    function startPhoto() {
+      console.log('start')
+      getUserMedia()
+    }
+
+    async function getUserMedia() {
+      const constraints = {
+        audio: false,
+        video: { width: 1280, height: 720 }
+      }
+
+      //const constraints = { 
+      //  audio: false, 
+      //  video: { facingMode: "user" } 
+      //}
+
+      try {
+
+        //兼容性处理
+        // 老的浏览器可能根本没有实现 mediaDevices，所以我们可以先设置一个空的对象
+        if (navigator.mediaDevices === undefined) {
+          navigator.mediaDevices = {};
+        }
+
+        // 一些浏览器部分支持 mediaDevices。我们不能直接给对象设置 getUserMedia
+        // 因为这样可能会覆盖已有的属性。这里我们只会在没有getUserMedia属性的时候添加它。
+        if (navigator.mediaDevices.getUserMedia === undefined) {
+          navigator.mediaDevices.getUserMedia = function(constraints) {
+
+            // 首先，如果有getUserMedia的话，就获得它
+            var getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+            // 一些浏览器根本没实现它 - 那么就返回一个error到promise的reject来保持一个统一的接口
+            if (!getUserMedia) {
+              return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+            }
+
+            // 否则，为老的navigator.getUserMedia方法包裹一个Promise
+            return new Promise(function(resolve, reject) {
+              getUserMedia.call(navigator, constraints, resolve, reject);
+            });
+          }
+        }
+
+       const stream = await navigator.mediaDevices.getUserMedia(constraints)
+        /* 使用这个stream stream */
+        var video = document.querySelector('video');
+        // 旧的浏览器可能没有srcObject
+        if ("srcObject" in video) {
+          video.srcObject = stream;
+        } else {
+          // 防止在新的浏览器里使用它，应为它已经不再支持了
+          video.src = window.URL.createObjectURL(stream);
+        }
+        video.onloadedmetadata = function(e) {
+          video.play();
+        };
+      } catch (error) {
+        /* 处理error */
+        console.log("error:", error)
+      }
+    }
+
   </script>
+  <div class="btn-container">
+    <button onclick="startPhoto()">开始拍照</button>
+    <button>开始人脸识别</button>
+    <button onclick="startPhoto()">拍照</button>
+    <button>人脸识别结束</button>
+  </div>
+  <video id="video" src=""></video>
+  <img id="previewImg" src="" alt="" sizes="" srcset="">
 </body>
 </html>
