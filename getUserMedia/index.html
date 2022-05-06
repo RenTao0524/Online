@@ -35,15 +35,15 @@
     }
 
     async function getUserMedia() {
-      const constraints = {
-        audio: false,
-        video: { width: 1280, height: 720 }
-      }
-
-      //const constraints = { 
-      //  audio: false, 
-      //  video: { facingMode: "user" } 
+      //const constraints = {
+      //  audio: false,
+      //  video: { width: 1280, height: 720 }
       //}
+
+      const constraints = { 
+        audio: false, 
+        video: { facingMode: "user" } 
+      }
 
       try {
 
