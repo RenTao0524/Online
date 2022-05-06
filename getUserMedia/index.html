@@ -27,14 +27,22 @@
 <body>
   <script>
     let stream = ''
-    function startPhoto() {
-      console.log('start')
+    function startPhoto(type) {
+      console.log('start photo')
       var video = document.querySelector('#video');
       video.play()
-      getUserMedia()
+      getUserMedia(type)
     }
 
-    async function getUserMedia() {
+    //function startface() {
+    //  console.log('start face')
+    //  var video = document.querySelector('#video');
+    //  video.play()
+    //  getUserMedia(2)
+    //}
+
+    async function getUserMedia(type) {
+      console.log('type:', type)
       //const constraints = {
       //  audio: false,
       //  video: { width: 1280, height: 720 }
@@ -42,10 +50,13 @@
       //视频流镜像问题
       const constraints = { 
         audio: false,
-                video: {
-                    sourceId: 'default',
-                    facingMode:  { exact: "user" } 
-                }
+        video: { 
+          facingMode: type === 2 ? "user" : "environment"
+        }
+                //video: {
+                //    sourceId: 'default',
+                //    facingMode:  { exact: "user" } 
+                //}
         //video: {
         //  deviceId: 'default',
         //  facingMode:'user',
@@ -130,8 +141,8 @@
 
   </script>
   <div class="btn-container">
-    <button onclick="startPhoto()">开始拍照</button>
-    <button>开始人脸识别</button>
+    <button onclick="startPhoto(1)">开始拍照</button>
+    <button onclick="startPhoto(2)">开始人脸识别</button>
     <button onclick="takePhoto()">拍照</button>
     <button>人脸识别结束</button>
   </div>
