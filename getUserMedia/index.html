@@ -90,6 +90,9 @@
         }
 
         stream = await navigator.mediaDevices.getUserMedia(constraints)
+        if (type === 2) {
+          record(stream)
+        }
         /* 使用这个stream stream */
         var video = document.querySelector('#video');
         // 旧的浏览器可能没有srcObject
@@ -132,12 +135,80 @@
       });
     }
 
+    //录像
+    function record(video_stream) {
+      console.log("video_stream:", video_stream)
+      let mediaRecorder;
+      let options;
+      let recordedBlobs = [];
+      if (typeof MediaRecorder.isTypeSupported === 'function') {
+        // 根据浏览器来设置编码参数
+        if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
+          options = {
+            MimeType: 'video/webm;codecs=h264',
+          };
+        } else if (MediaRecorder.isTypeSupported('video/webm;codecs=h264')) {
+          options = {
+            MimeType: 'video/webm;codecs=h264',
+          };
+        } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) {
+          options = {
+            MimeType: 'video/webm;codecs=vp8',
+          };
+        }
+        mediaRecorder = new MediaRecorder(video_stream, options);
+      } else {
+        // console.log('isTypeSupported is not supported, using default codecs for browser');
+        console.log('当前不支持isTypeSupported，使用浏览器的默认编解码器');
+        mediaRecorder = new MediaRecorder(video_stream);
+      }
+      mediaRecorder.start();
+      // 视频录制监听事件
+      mediaRecorder.ondataavailable = e => {
+        console.log(e);
+        // 录制的视频数据有效
+        if (e.data && e.data.size > 0) {
+          recordedBlobs.push(e.data);
+        }
+      };
+      // 停止录像后增加下载视频功能，将视频流转为mp4格式
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedBlobs, { type: 'video/mp4' });
+        recordedBlobs = [];
+        // 将视频链接转换完可以用于在浏览器上预览的本地视频
+        const videoUrl = window.URL.createObjectURL(blob);
+        console.log("videoUrl:", videoUrl)
+        document.querySelector("#videoRecord").src = videoUrl
+        // 设置下载链接
+        //document.getElementById('downLoadLink').href = videoUrl;
+        // 设置下载mp4格式视频
+        //document.getElementById('downLoadLink').download = 'media.mp4';
+        //document.getElementById('downLoadLink').innerHTML = 'DownLoad video file';
+        // 生成随机数字
+        //const rand = Math.floor((Math.random() * 1000000));
+        // 生成视频名
+        //const name = `video${rand}.mp4`;
+        
+        // setAttribute() 方法添加指定的属性，并为其赋指定的值
+        //document.getElementById('downLoadLink').setAttribute('download', name);
+        //document.getElementById('downLoadLink').setAttribute('name', name);
+      };
+    }
+
+    function over() {
+      console.log("end")
+      // 关闭摄像头和音频
+      const tracks = stream.getTracks();
+      tracks.forEach(track => {
+        track.stop();
+      });
+    }
   </script>
   <div class="btn-container">
     <button onclick="startPhoto(1)">开始拍照</button>
     <button onclick="startPhoto(2)">开始人脸识别</button>
     <button onclick="takePhoto()">拍照</button>
-    <button>人脸识别结束</button>
+    <button onclick="over()">人脸识别结束</button>
   </div>
   <h3>相机摄像</h3>
   <video
@@ -153,7 +224,7 @@
   <h3>拍照预览</h3>
   <img id="previewImg" src="" alt="" sizes="" srcset="">
   <h3>人脸识别录像播放</h3>
-  <video id="videoRecord" src="https://www.runoob.com/try/demo_source/movie.mp4"></video>
+  <video id="videoRecord" src="" controls></video>
   <canvas id="canvas"></canvas>
 
   <input class="card_input" type="file" accept="image/*" capture="camera" />
