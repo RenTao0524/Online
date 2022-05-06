@@ -18,8 +18,9 @@
       height: 400px;
     }
     #previewImg {
-      width: 100%;
+      width: 100vw;
       height: auto;
+      object-fit: cover;
     }
   </style>
 </head>
@@ -28,7 +29,7 @@
     let stream = ''
     function startPhoto() {
       console.log('start')
-      var video = document.querySelector('video');
+      var video = document.querySelector('#video');
       video.play()
       getUserMedia()
     }
@@ -74,7 +75,7 @@
 
         stream = await navigator.mediaDevices.getUserMedia(constraints)
         /* 使用这个stream stream */
-        var video = document.querySelector('video');
+        var video = document.querySelector('#video');
         // 旧的浏览器可能没有srcObject
         if ("srcObject" in video) {
           video.srcObject = stream;
@@ -93,25 +94,24 @@
 
     //拍照
     function takePhoto() {
-
       var canvas = document.querySelector('#canvas');
       canvas.getContext('2d');
       var video = document.querySelector('#video');
       video.pause()
-    //const width = video.clientWidth
-    //const height = video.clientWidth/video.videoWidth * video.videoHeight
-    //canvas.width = width
-    //canvas.height = height
-    canvas.getContext('2d').drawImage(video, 0, 0)
+      const width = video.clientWidth
+      const height = video.clientWidth/video.videoWidth * video.videoHeight
+      canvas.width = width
+      canvas.height = height
+      canvas.getContext('2d').drawImage(video, 0, 0, width, height)
 
-    const img = canvas.toDataURL('image/png', 0.7)
+      const img = canvas.toDataURL('image/png', 0.7)
 
-    console.log('img:', img)
+      console.log('img:', img)
 
 
-    document.querySelector("#previewImg").src = img
-    // 关闭摄像头和音频
-    const tracks = stream.getTracks();
+      document.querySelector("#previewImg").src = img
+      // 关闭摄像头和音频
+      const tracks = stream.getTracks();
       tracks.forEach(track => {
         track.stop();
       });
@@ -135,10 +135,10 @@
     playsInline =true
     x-webkit-airplay="true"
   ></video>
-  <canvas id="canvas"></canvas>
   <h3>拍照预览</h3>
   <img id="previewImg" src="" alt="" sizes="" srcset="">
   <h3>人脸识别录像播放</h3>
   <video id="videoRecord" src="https://www.runoob.com/try/demo_source/movie.mp4"></video>
+  <canvas id="canvas"></canvas>
 </body>
 </html>
