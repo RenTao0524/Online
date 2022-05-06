@@ -93,8 +93,25 @@
 
     //拍照
     function takePhoto() {
-      const tracks = stream.getTracks();
-      // 关闭摄像头和音频
+
+      var canvas = document.querySelector('#canvas');
+      canvas.getContext('2d');
+      var video = document.querySelector('#video');
+      video.pause()
+    //const width = video.clientWidth
+    //const height = video.clientWidth/video.videoWidth * video.videoHeight
+    //canvas.width = width
+    //canvas.height = height
+    canvas.getContext('2d').drawImage(video, 0, 0)
+
+    const img = canvas.toDataURL('image/png', 0.7)
+
+    console.log('img:', img)
+
+
+    document.querySelector("#previewImg").src = img
+    // 关闭摄像头和音频
+    const tracks = stream.getTracks();
       tracks.forEach(track => {
         track.stop();
       });
@@ -118,7 +135,7 @@
     playsInline =true
     x-webkit-airplay="true"
   ></video>
-  <canvas id="canvas_video"></canvas>
+  <canvas id="canvas"></canvas>
   <h3>拍照预览</h3>
   <img id="previewImg" src="" alt="" sizes="" srcset="">
   <h3>人脸识别录像播放</h3>
