@@ -39,19 +39,18 @@
       //  audio: false,
       //  video: { width: 1280, height: 720 }
       //}
-
+      //视频流镜像问题
       const constraints = { 
-//        video: {
-//       deviceId: 'default',
-//       facingMode:'user',
-//}
-
         audio: false, 
-        //video: { facingMode: "user" } 
         video: {
-          sourceId: 'default',
-          facingMode: { exact: "user" }
+          deviceId: 'default',
+          facingMode:'user',
         }
+        //video: { facingMode: "user" } 
+        //video: {
+        //  sourceId: 'default',
+        //  facingMode: { exact: "user" }
+        //}
       }
 
       try {
