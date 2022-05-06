@@ -180,18 +180,18 @@
         console.log("videoUrl:", videoUrl)
         document.querySelector("#videoRecord").src = videoUrl
         // 设置下载链接
-        //document.getElementById('downLoadLink').href = videoUrl;
+        document.getElementById('downLoadLink').href = videoUrl;
         // 设置下载mp4格式视频
-        //document.getElementById('downLoadLink').download = 'media.mp4';
-        //document.getElementById('downLoadLink').innerHTML = 'DownLoad video file';
+        document.getElementById('downLoadLink').download = 'media.mp4';
+        document.getElementById('downLoadLink').innerHTML = 'DownLoad video file';
         // 生成随机数字
-        //const rand = Math.floor((Math.random() * 1000000));
+        const rand = Math.floor((Math.random() * 1000000));
         // 生成视频名
-        //const name = `video${rand}.mp4`;
+        const name = `video${rand}.mp4`;
         
         // setAttribute() 方法添加指定的属性，并为其赋指定的值
-        //document.getElementById('downLoadLink').setAttribute('download', name);
-        //document.getElementById('downLoadLink').setAttribute('name', name);
+        document.getElementById('downLoadLink').setAttribute('download', name);
+        document.getElementById('downLoadLink').setAttribute('name', name);
       };
     }
 
@@ -228,5 +228,9 @@
   <canvas id="canvas"></canvas>
 
   <input class="card_input" type="file" accept="image/*" capture="camera" />
+
+  <input class="card_input" type="file" accept="" capture="user" />
+
+  <a href="" id="downLoadLink">downLoadLink</a>
 </body>
 </html>
