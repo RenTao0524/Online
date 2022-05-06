@@ -41,8 +41,17 @@
       //}
 
       const constraints = { 
+//        video: {
+//       deviceId: 'default',
+//       facingMode:'user',
+//}
+
         audio: false, 
-        video: { facingMode: "user" } 
+        //video: { facingMode: "user" } 
+        video: {
+          sourceId: 'default',
+          facingMode: { exact: "user" }
+        }
       }
 
       try {
