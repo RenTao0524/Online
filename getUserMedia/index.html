@@ -20,7 +20,7 @@
     #previewImg {
       width: 100vw;
       height: auto;
-      object-fit: cover;
+      object-fit: contain;
     }
   </style>
 </head>
@@ -107,7 +107,6 @@
       const img = canvas.toDataURL('image/png', 0.7)
 
       console.log('img:', img)
-
 
       document.querySelector("#previewImg").src = img
       // 关闭摄像头和音频
