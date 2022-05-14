@@ -44,9 +44,16 @@
       //视频流镜像问题
       const constraints = { 
         audio: false,
-        video: { 
-          facingMode: type === 2 ? "user" : "environment"
-        }
+        video: {
+
+sourceId: 'default',
+
+facingMode:  { exact: "user" }
+
+}
+        //video: { 
+        //  facingMode: type === 2 ? "user" : "environment"
+        //}
                 //video: {
                 //    sourceId: 'default',
                 //    facingMode:  { exact: "user" } 
