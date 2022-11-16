@@ -1,74 +1,95 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>360全景</title>
-		<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-		<meta http-equiv="x-ua-compatible" content="IE=edge" />
-		<style>
-			/* @-ms-viewport {
+  <head>
+    <title>360全景</title>
+    <meta
+      name="viewport"
+      content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <style>
+      /* @-ms-viewport {
 				width: device-width;
 			} */
 
-			html {
-				height: 100%;
-			}
+      html {
+        height: 100%;
+      }
 
-			body {
-				height: 100%;
-				overflow: hidden;
-				margin: 0;
-				padding: 0;
-				font-family: Arial, Helvetica, sans-serif;
-				font-size: 16px;
-				color: #FFFFFF;
-				background-color: #000000;
-			}
+      body {
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        color: #ffffff;
+        background-color: #000000;
+      }
 
-			a {
-				color: #FFFFFF;
-				text-decoration: underline;
-			}
-		</style>
-	</head>
-	<body>
-		<div id="krpanoDIV" style="width:100%;height:100%;">
-			<noscript>
-				<table style="width:100%;height:100%;">
-					<tr style="vertical-align:middle;">
-						<td>
-							<div style="text-align:center;">ERROR:<br /><br />Javascript not activated<br /><br /></div>
-						</td>
-					</tr>
-				</table>
-			</noscript>
-		</div>
+      a {
+        color: #ffffff;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="krpanoDIV" style="width: 100%; height: 100%">
+      <noscript>
+        <table style="width: 100%; height: 100%">
+          <tr style="vertical-align: middle">
+            <td>
+              <div style="text-align: center">
+                ERROR:<br /><br />Javascript not activated<br /><br />
+              </div>
+            </td>
+          </tr>
+        </table>
+      </noscript>
+    </div>
 
-		<script src="krpano.js"></script>
-		<script type="text/javascript">
-			/* 
-			 *	本地地址：
-			 *		http://192.168.28.23:9527/zDemo/krpanoSimple/index.html（需启动nginx服务）
-			 *	服务器地址：
-			 *		https://bmwminipro.blob.core.chinacloudapi.cn/minipg/360/krpanoSimple/index.html
-			 */
-			embedpano({
-				xml: "index.xml",
-				target: "krpanoDIV",
-				html5: "only",
-				consolelog: true,
-				onready: krpanoReady
-			});
+    <script src="krpano.js"></script>
+    <script type="text/javascript">
+      /*
+       *	本地地址：
+       *		http://192.168.28.23:9527/zDemo/krpanoSimple/index.html（需启动nginx服务）
+       *	服务器地址：
+       *		https://bmwminipro.blob.core.chinacloudapi.cn/minipg/360/krpanoSimple/index.html
+       */
+      embedpano({
+        xml: "index.xml",
+        target: "krpanoDIV",
+        html5: "only",
+        consolelog: true,
+        onready: krpanoReady,
+        initvars: {
+          imagepath:
+            "https://rentao0524.github.io/online/photo-sphere-viewer/images/FKPA9S04D7.jpg",
+        },
+      });
 
-			function krpanoReady() {
-				var krpano = document.getElementById('krpanoSWFObject');
-				console.log('krpano', krpano);
-				// setTimeout(() => {
-				// 	krpano.call("loadscene('scene2')");
-				// }, 2000)
-			};
-		</script>
-	</body>
+      function krpanoReady() {
+        var krpano = document.getElementById("krpanoSWFObject");
+        console.log("krpano", krpano);
+        // setTimeout(() => {
+        // 	krpano.call("loadscene('scene2')");
+        // }, 2000)
+        setTimeout(() => {
+          embedpano({
+            xml: "index.xml",
+            target: "krpanoDIV",
+            html5: "only",
+            consolelog: true,
+            vars: {
+              imagepath:
+                "https://prod.cosy.aws.bmwchina.cloud/bmwweb/cosySec?COSY-EU-100-2545ffySlJrjGRPixrQbkDlWrjGocRozmVxSbyFn%25RcRoepMMqMESGuRIHFrQbvKbyFndl38jvmr4cYiwd5wcRoLz2ywwGrjGj8adrQbLDWcQW7%251uRCRqoQh47wMvcYi9SDaYMb3islBglUQT9cRScH78lMbnMd0zHyJGy5BOUrQ%25r9SaJW8zWunJEqogqaGCel3ilU%25e0cRScHz8fMbnMdgCuyJGy5i4BrQ%25r9SeCW8zWunm7qogqaDHFl3ilUC7gcRScH4giMbnMdeoSyJGy5m3XrQ%25r98RnW8zWuob9qogqa3Jnl3ilUR%25gcRScHbz1MbnMdJCRyJGy5QLUrQ%25r98vnW8zWuuRHqogqaYRbl3ilUEQ8cRScHFNHMbnMd8JEyJGy5ioorQ%25r9snYW8zWuBJCqogqaY48l3ilUEywcRScHemBMbnMdIgAyJGy5i31rQbOS%25hrjGE1cyJRBxylsrjG5cRoVeskrbfrjGQ9uyJRStDfhrjGj9Mb3xM4RIyFn4Q3uyJR2irr6QW7%253soUW8JZMESbd59uyJR2lBg3UHd5cRo6W7%259Mb3vq0zuyJRPO0mse8glBgbUQ85mu3rQbL0ZyFn%25ab6djNQRLMb3mrMvnyFn759",
+            },
+          });
+        }, 3000);
+      }
+    </script>
+  </body>
 </html>
