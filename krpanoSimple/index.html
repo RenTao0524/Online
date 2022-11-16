@@ -71,23 +71,24 @@
         },
       });
 
-      function krpanoReady() {
-        var krpano = document.getElementById("krpanoSWFObject");
+      function krpanoReady(krpano) {
+        // var krpano = document.getElementById("krpanoSWFObject");
         console.log("krpano", krpano);
         // setTimeout(() => {
         // 	krpano.call("loadscene('scene2')");
         // }, 2000)
         setTimeout(() => {
-          embedpano({
-            xml: "index.xml",
-            target: "krpanoDIV",
-            html5: "only",
-            consolelog: true,
-            vars: {
-              imagepath:
-                "https://prod.cosy.aws.bmwchina.cloud/bmwweb/cosySec?COSY-EU-100-2545ffySlJrjGRPixrQbkDlWrjGocRozmVxSbyFn%25RcRoepMMqMESGuRIHFrQbvKbyFndl38jvmr4cYiwd5wcRoLz2ywwGrjGj8adrQbLDWcQW7%251uRCRqoQh47wMvcYi9SDaYMb3islBglUQT9cRScH78lMbnMd0zHyJGy5BOUrQ%25r9SaJW8zWunJEqogqaGCel3ilU%25e0cRScHz8fMbnMdgCuyJGy5i4BrQ%25r9SeCW8zWunm7qogqaDHFl3ilUC7gcRScH4giMbnMdeoSyJGy5m3XrQ%25r98RnW8zWuob9qogqa3Jnl3ilUR%25gcRScHbz1MbnMdJCRyJGy5QLUrQ%25r98vnW8zWuuRHqogqaYRbl3ilUEQ8cRScHFNHMbnMd8JEyJGy5ioorQ%25r9snYW8zWuBJCqogqaY48l3ilUEywcRScHemBMbnMdIgAyJGy5i31rQbOS%25hrjGE1cyJRBxylsrjG5cRoVeskrbfrjGQ9uyJRStDfhrjGj9Mb3xM4RIyFn4Q3uyJR2irr6QW7%253soUW8JZMESbd59uyJR2lBg3UHd5cRo6W7%259Mb3vq0zuyJRPO0mse8glBgbUQ85mu3rQbL0ZyFn%25ab6djNQRLMb3mrMvnyFn759",
-            },
-          });
+          krpano.set('imagepath', "https://prod.cosy.aws.bmwchina.cloud/bmwweb/cosySec?COSY-EU-100-2545ffySlJrjGRPixrQbkDlWrjGocRozmVxSbyFn%25RcRoepMMqMESGuRIHFrQbvKbyFndl38jvmr4cYiwd5wcRoLz2ywwGrjGj8adrQbLDWcQW7%251uRCRqoQh47wMvcYi9SDaYMb3islBglUQT9cRScH78lMbnMd0zHyJGy5BOUrQ%25r9SaJW8zWunJEqogqaGCel3ilU%25e0cRScHz8fMbnMdgCuyJGy5i4BrQ%25r9SeCW8zWunm7qogqaDHFl3ilUC7gcRScH4giMbnMdeoSyJGy5m3XrQ%25r98RnW8zWuob9qogqa3Jnl3ilUR%25gcRScHbz1MbnMdJCRyJGy5QLUrQ%25r98vnW8zWuuRHqogqaYRbl3ilUEQ8cRScHFNHMbnMd8JEyJGy5ioorQ%25r9snYW8zWuBJCqogqaY48l3ilUEywcRScHemBMbnMdIgAyJGy5i31rQbOS%25hrjGE1cyJRBxylsrjG5cRoVeskrbfrjGQ9uyJRStDfhrjGj9Mb3xM4RIyFn4Q3uyJR2irr6QW7%253soUW8JZMESbd59uyJR2lBg3UHd5cRo6W7%259Mb3vq0zuyJRPO0mse8glBgbUQ85mu3rQbL0ZyFn%25ab6djNQRLMb3mrMvnyFn759")
+          // embedpano({
+          //   xml: "index.xml",
+          //   target: "krpanoDIV",
+          //   html5: "only",
+          //   consolelog: true,
+          //   vars: {
+          //     imagepath:
+          //       "https://prod.cosy.aws.bmwchina.cloud/bmwweb/cosySec?COSY-EU-100-2545ffySlJrjGRPixrQbkDlWrjGocRozmVxSbyFn%25RcRoepMMqMESGuRIHFrQbvKbyFndl38jvmr4cYiwd5wcRoLz2ywwGrjGj8adrQbLDWcQW7%251uRCRqoQh47wMvcYi9SDaYMb3islBglUQT9cRScH78lMbnMd0zHyJGy5BOUrQ%25r9SaJW8zWunJEqogqaGCel3ilU%25e0cRScHz8fMbnMdgCuyJGy5i4BrQ%25r9SeCW8zWunm7qogqaDHFl3ilUC7gcRScH4giMbnMdeoSyJGy5m3XrQ%25r98RnW8zWuob9qogqa3Jnl3ilUR%25gcRScHbz1MbnMdJCRyJGy5QLUrQ%25r98vnW8zWuuRHqogqaYRbl3ilUEQ8cRScHFNHMbnMd8JEyJGy5ioorQ%25r9snYW8zWuBJCqogqaY48l3ilUEywcRScHemBMbnMdIgAyJGy5i31rQbOS%25hrjGE1cyJRBxylsrjG5cRoVeskrbfrjGQ9uyJRStDfhrjGj9Mb3xM4RIyFn4Q3uyJR2irr6QW7%253soUW8JZMESbd59uyJR2lBg3UHd5cRo6W7%259Mb3vq0zuyJRPO0mse8glBgbUQ85mu3rQbL0ZyFn%25ab6djNQRLMb3mrMvnyFn759",
+          //   },
+          // });
         }, 3000);
       }
     </script>
