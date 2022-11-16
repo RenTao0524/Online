@@ -1,0 +1,77 @@
+<!-- <krpano onstart="showlog();"> -->
+<krpano onstart="loadscene(scene2);">
+	<!-- 预览图 默认生成 -->
+	<preview type="grid()" />
+	
+	<scene name="scene1">
+		<!-- 全景图片 -->
+		<image hfov="360" vfov="180">
+			<cube url="https://qhyxpicoss.kujiale.com/r/2017/09/01/L3D221IS3QKUQUQBOGAPEK3P3XU888_7500x1250.jpg_%s" />
+		</image>
+	</scene>
+	
+	<scene name="scene2">
+		<!-- 全景图片 -->
+		<image hfov="360" vfov="180">
+			<sphere url="https://prod.cosy.aws.bmwchina.cloud/bmwweb/cosySec?COSY-EU-100-2545ffySlJrjGRPixrQbkDlWrjGocRozmVxSbyFn%25RcRoepMMqMESGuRIHFrQbvKbyFndl38jvmr4cYiwd5wcRoLz2ywwGrjGj8adrQbLDWcQW7%251uRCRqoQh47wMvcYi9SDaYMb3islBglUQT9cRScH78lMbnMd0zHyJGy5BOUrQ%25r9SaJW8zWunJEqogqaGCel3ilU%25e0cRScHz8fMbnMdgCuyJGy5i4BrQ%25r9SeCW8zWunm7qogqaDHFl3ilUC7gcRScH4giMbnMdeoSyJGy5m3XrQ%25r98RnW8zWuob9qogqa3Jnl3ilUR%25gcRScHbz1MbnMdJCRyJGy5QLUrQ%25r98vnW8zWuuRHqogqaYRbl3ilUEQ8cRScHFNHMbnMd8JEyJGy5ioorQ%25r9snYW8zWuBJCqogqaY48l3ilUEywcRScHemBMbnMdIgAyJGy5i31rQbOS%25hrjGE1cyJRBxylsrjG5cRoVeskrbfrjGQ9uyJRStDfhrjGj9Mb3xM4RIyFn4Q3uyJR2irr6QW7%253soUW8JZMESbd59uyJR2lBg3UHd5cRo6W7%259Mb3vq0zuyJRPO0mse8glBgbUQ85mu3rQbL0ZyFn%25ab6djNQRLMb3mrMvnyFn759" />
+		</image>
+		
+		<!--
+			控制全景的视野
+			hlookat	水平视角  -180 至  180 之间
+			vlookat 垂直视角  -90  至  90  之间
+			camroll 镜头旋转视角
+		 -->
+		<view hlookat="0"
+			  vlookat="0"
+			  camroll="270"
+			  fov="115"
+			  />
+	</scene>
+	
+	<!-- 控制按钮 -->
+	<!-- <plugin name="test"
+	        url.html5="pluginexample.js"
+	        url.flash="pluginexample.swf"
+	        align="lefttop"
+			x="20"
+			y="20"
+	        mode="testing"
+	        value="200.0"
+	        onclick="dosomething('hello', 'plugin');"
+	        /> -->
+			
+	<!--
+		陀螺仪
+		enabled			是否启用陀螺仪
+		camroll			根据设备旋转调整观看位置
+		friction		0.0-0.99或者auto  摩擦力，auto和zoom/fov/frame-rate有关
+		touch_mode		off(关闭)/horizontaloffset（横向）/full（全部）/disablegyro（）,触摸方式
+		sensor			0 - deviceorientation 事件，1 - devicemotion事件（默认）
+						但是需要设置成0才能防止陀螺仪的灵敏度过高以及抖动的问题，在部分android设备会用问题，待具体验证 
+		sensor_mode		传感器类型
+		softstart		启用陀螺时，方向改变的时间，为0将立即使用gyro-tracked值
+		autocalibration	自动校准陀螺仪
+		onavailable		在支持陀螺仪的设备上调用
+		onunavailable	在不支持陀螺仪的设备上调用
+		onenable		在陀螺仪启用的时候调用
+		ondisable		在陀螺仪禁用的时候调用
+	-->
+	<!-- <plugin name="gyro" 
+			devices="html5" 
+	        keep="true"
+	        url="./flexsdk/lib/gyro2.js"
+	        enabled="false"
+	        camroll="true"
+	        friction="0.9"
+	        touch_mode="full"
+			sensor="1"
+	        sensor_mode="1"
+	        softstart="0.5"
+	        autocalibration="true"
+	        onavailable=""
+	        onunavailable=""
+	        onenable=""
+	        ondisable=""
+	        /> -->
+</krpano>

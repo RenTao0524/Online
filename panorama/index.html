@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>360&deg; Image</title>
+  <meta name="description" content="360&deg; Image - A-Frame">
+  <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+  <script type="text/javascript" src="jquery-1.10.2.js"></script>
+  <script type="text/javascript" src="jquery.params.js"></script>
+  <script src="aframe-master.js"></script>
+  <script type="text/javascript">
+    var params = {}
+    var pathUri = "https://cn-digital2-app.bmw.com.cn/sisley/v1/images/vehicle?brand=$brand&variant_code=$variant_code&component_id=$component_id&paint_codes=$paint_codes&rim_codes=$rim_codes&trim_codes=$trim_codes&upholstery_codes=$upholstery_codes"
+    function getParamData() {
+      // brand=BMW&component_id=1610606992465&lci=0&variant_code=7X41_0ZSE&upholstery_codes=FMAH7&trim_codes=S04K9&rim_codes=S01VD&paint_codes=P0C1M
+      params.component_id = $.query.get("component_id");
+      params.brand = $.query.get("brand");
+      // variant_code 
+      params.variant_code = $.query.get("variant_code");
+      params.upholstery_codes = $.query.get("upholstery_codes");
+      params.trim_codes = $.query.get("trim_codes");
+      params.paint_codes = $.query.get("paint_codes");
+      params.rim_codes = $.query.get("rim_codes");
+    }
+    $(function () {
+      $(".load").show();
+      getParamData();
+      if (params.brand && params.variant_code && params.upholstery_codes && params.trim_codes && params.paint_codes && params.rim_codes) {
+        pathUri = pathUri.replace("$variant_code", params.variant_code)
+          .replace("$component_id", params.component_id)
+          .replace("$paint_codes", params.paint_codes)
+          .replace("$upholstery_codes", params.upholstery_codes)
+          .replace("$trim_codes", params.trim_codes)
+          .replace("$rim_codes", params.rim_codes)
+          .replace("$upholstery_codes", params.upholstery_codes)
+          .replace("$brand", params.brand)
+        console.log("~~~pathUri:", pathUri);
+        $.ajax({
+          type: "GET",
+          contentType: "application/json;charset=UTF-8",
+          url: pathUri,
+          success: function (result) {
+            console.log("~~~ajax result:", result);
+            let img = {}
+            $.each(result.rule_img_sets, function (i, val) {
+              if (val.rule_name == "panorama") {
+                img = val.rule_images[0].img_urls[0]
+                return
+              }
+            })
+            console.log("~~~img:", img)
+            // img.img_urls[0]
+            if (img) {
+              $("#skyImg").attr({ "src": img })
+            }
+            $(".load").hide();
+          },
+          error: function (e) {
+            console.log(e.status);
+            console.log(e.responseText);
+            alert(e.responseText)
+            $(".load").hide();
+          },
+          complete: function (XMLHttpRequest, status) {
+            if (status == 'timeout') {
+              ajaxTimeoutTest.abort();
+              alert("超时");
+            }
+            $(".load").hide();
+          }
+        });
+      }
+    })
+
+  </script>
+  <style type="text/css">
+    .a-enter-ar,
+    .a-enter-vr {
+      display: none;
+    }
+
+    .load {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      background: #fff;
+    }
+
+    .load_main {
+      width: 100%;
+      height: 40px;
+      position: absolute;
+      top: 40%;
+      text-align: center;
+      font-size: 60px;
+    }
+
+    .load_main i {
+      color: #1f8abf
+    }
+  </style>
+</head>
+
+<body>
+  <div class="load">
+    <div class="load_main">
+      <i class="fa fa-spinner fa-spin"></i>
+    </div>
+  </div>
+  <a-scene>
+    <a-sky id="skyImg" rotation="0 -90 0"></a-sky>
+
+    <!-- <a-text font="kelsonsans" value="Puy de Sancy, France" width="6" position="-2.5 0.25 -1.5"
+              rotation="0 15 0"></a-text> -->
+  </a-scene>
+</body>
+
+</html>
