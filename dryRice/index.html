@@ -5,9 +5,80 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>干饭菜单</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        header {
+            display: flex;
+            justify-content: center;
+        }
+        .biaoqingbao {
+            margin: 20px 0;
+            height: 200px;
+            width: auto;
+        }
+        main {
+            display: flex;
+        }
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0 20px;
+            min-width: 160px;
+        }
+        li {
+            cursor: pointer;
+        }
+        li + li {
+            margin-top: 20px;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <h2>干饭人</h2>
-    <img src="./static/rice.png" alt="" srcset="">
+    <script>
+        function handleRrandom() {
+            const resultDom = document.getElementById('result')
+            const countdownDom = document.getElementById('countdown')
+            console.log('resultDom:', resultDom)
+            resultDom.innerText = '随机动效...'
+            var countdown = 5
+            countdownDom.innerHTML = countdown
+            var timerid = setInterval(() => {
+                countdown--
+                if (countdown === 0) {
+                    countdownDom.innerHTML = ''
+                    resultDom.innerHTML = '🎉老婆 今晚吃蛋炒粉'
+                    clearInterval(timerid)
+                    return
+                }
+                countdownDom.innerHTML = countdown
+            }, 1000);
+        }
+    </script>
+    <header>
+        <img class="biaoqingbao" src="./static/rice.png" alt="" srcset="">
+    </header>
+    <main>
+        <ul>
+            <li>
+                <span>午饭菜单</span>
+            </li>
+            <li>
+                <span>晚饭菜单</span>
+            </li>
+        </ul>
+        <div class="main-container">
+            <button onclick="handleRrandom()">随机</button>
+            <p id="countdown"></p>
+            <p id="result"></p>
+        </div>
+    </main>
 </body>
 </html>
