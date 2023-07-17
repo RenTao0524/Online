@@ -1,19 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  test demo
-  <script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    test demo
+    <script>
+      navigator.permissions.query({ name: "clipboard-read" }).then((result) => {
+        console.log("result:", result);
+        // If permission to read the clipboard is granted or if the user will
+        // be prompted to allow it, we proceed.
 
-navigator.clipboard.readText().then(
-        clipText => {
-            console.log('clipText:', clipText)
-        });
-  </script>
-</body>
+        if (result.state == "granted" || result.state == "prompt") {
+          navigator.clipboard.read().then((data) => {
+            console.log("data:", data);
+            // for (let i=0; i<data.items.length; i++) {
+            //   if (data.items[i].type != "text/plain") {
+            //     alert("Clipboard contains non-text data. Unable to access it.");
+            //   } else {
+            //     textElem.innerText = data.items[i].getAs("text/plain");
+            //   }
+            // }
+          });
+        }
+      });
+
+      // navigator.clipboard.readText().then(
+      //         clipText => {
+      //             console.log('clipText:', clipText)
+      //         });
+
+      // navigator.clipboard.read().then(
+      //         clipText => {
+      //             console.log('clipText:', clipText)
+      //         });
+    </script>
+  </body>
 </html>
