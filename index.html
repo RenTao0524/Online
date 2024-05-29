@@ -6,20 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body>
-    test demo
-    <script>
+  <script>
+    function copyText() {
+      console.log("12lcis");
+
       navigator.permissions.query({ name: "clipboard-read" }).then((result) => {
-        console.log("result:", result);
         // If permission to read the clipboard is granted or if the user will
         // be prompted to allow it, we proceed.
 
         if (result.state == "granted" || result.state == "prompt") {
-          navigator.clipboard.read().then((data) => {
-            console.log("data:", data);
-            // for (let i=0; i<data.items.length; i++) {
+          navigator.clipboard.read().then((clipboardItems) => {
+            // console.log("data==", data);
+            let reader = new FileReader(); // 文件解码器
+            console.log(clipboardItems);
+            clipboardItems[0].getType("text/plain").then((data) => {
+              console.log('data=', data)
+              // 二进制数据( Blob ) data
+              reader.onload = (e) => {
+                // 函数完成后触发的事件
+                // 对二进制编码后的结果
+                console.log('e::', e)
+                oDiv.innerText = e.target.result;
+              };
+              reader.readAsText(data); // 是一个异步函数
+            });
+            // for (let i = 0; i < data.items.length; i++) {
             //   if (data.items[i].type != "text/plain") {
-            //     alert("Clipboard contains non-text data. Unable to access it.");
+            //     alert(
+            //       "Clipboard contains non-text data. Unable to access it."
+            //     );
             //   } else {
             //     textElem.innerText = data.items[i].getAs("text/plain");
             //   }
@@ -27,16 +42,10 @@
           });
         }
       });
-
-      // navigator.clipboard.readText().then(
-      //         clipText => {
-      //             console.log('clipText:', clipText)
-      //         });
-
-      // navigator.clipboard.read().then(
-      //         clipText => {
-      //             console.log('clipText:', clipText)
-      //         });
-    </script>
+    }
+  </script>
+  <body>
+    test demo
+    <button onclick="copyText()">click</button>
   </body>
 </html>
