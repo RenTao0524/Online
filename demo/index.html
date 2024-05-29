@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://gw.alipayobjects.com/as/g/h5-lib/alipayjsapi/3.1.1/alipayjsapi.min.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <script>
-        setTimeout(() => {
-            console.log('change title')
-            // document.title = 
-            document.title='\u200E'
-            ap.call('setTitle', {
-  title: '',
-});
-        }, 3000);
+      setTimeout(() => {
+        console.log("change title");
+        // document.title =
+        ap.call("setTitle", {
+          title: "",
+        });
+      }, 3000);
     </script>
-</body>
+  </body>
 </html>
