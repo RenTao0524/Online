@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://gw.alipayobjects.com/as/g/h5-lib/alipayjsapi/3.1.1/alipayjsapi.min.js"></script>
 </head>
 <body>
     <script>
@@ -11,6 +12,9 @@
             console.log('change title')
             // document.title = 
             document.title='\u200E'
+            ap.call('setTitle', {
+  title: '',
+});
         }, 3000);
     </script>
 </body>
